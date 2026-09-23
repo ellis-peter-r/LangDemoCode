@@ -4,6 +4,7 @@ export class LanguageObject {
   constructor(page) {
     this.page = page;
     this.langListButton = page.locator('[data-testid="translate-button"]');
+    this.langDropdown = page.locator('[data-testid="header-dropdown-translate"]');
     this.translatedLink = null;
   }
 
@@ -12,7 +13,8 @@ export class LanguageObject {
   }
   
   async selectLanguage(languageLabel) {
-    await this.langListButton.click(); // Open the language dropdown
+    await this.langListButton.click({delay: 200}); // Open the language dropdown
+    await expect(this.langDropdown).toBeVisible(); // Verify that the dropdown is visible
     const langOption = this.page.locator(`[data-testid="translate-link-${languageLabel}"]`);// Select the desired language option
     await langOption.click(); // Click the desired language option
   }

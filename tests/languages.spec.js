@@ -9,6 +9,7 @@ test.describe('Language Selection Tests', () => {
 
   test('Language Selection', async ({ page }) => {
     const langListButton = page.locator('[data-testid="translate-button"]');
+    const langDropdown = page.locator('[data-testid="header-dropdown-translate"]');
     
     const volunteerTranslation = [
       ['es', 'Voluntario'], //Spanish
@@ -19,8 +20,8 @@ test.describe('Language Selection Tests', () => {
     ];
     
     for (const [languageLabel, expectedText] of volunteerTranslation) {
-      //const langListButton = page.locator('[data-testid="translate-button"]');
-      await langListButton.click(); // Open the language dropdown
+      await langListButton.click({delay: 200}); // Open the language dropdown
+      await expect(langDropdown).toBeVisible(); // Verify that the dropdown is visible
 
       // Click the desired language option
       const langOption = page.locator(`[data-testid="translate-link-${languageLabel}"]`);
