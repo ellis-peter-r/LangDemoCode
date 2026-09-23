@@ -5,6 +5,7 @@ test.describe('Language Selection Tests', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('https://uvahealth.com/');
+    await page.waitForLoadState('networkidle'); 
   });
 
   test('Language Selection', async ({ page }) => {
@@ -20,7 +21,7 @@ test.describe('Language Selection Tests', () => {
     ];
     
     for (const [languageLabel, expectedText] of volunteerTranslation) {
-      await langListButton.click({delay: 200}); // Open the language dropdown
+      await langListButton.click(); // Open the language dropdown
       await expect(langDropdown).toBeVisible(); // Verify that the dropdown is visible
 
       // Click the desired language option
